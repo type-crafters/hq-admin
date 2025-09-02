@@ -11,7 +11,7 @@ export default function BreadCrumbs(): JSX.Element {
                 {crumbs.map((crumb, i) => (
                     <li
                         key={i}
-                        className="flex items-center not-last:after:content-['\203A'] not-last:after:text-2xl not-last:after:mb-1 not-last:after:mx-3 not-last:after:opacity-60"
+                        className="flex items-center not-last:after:chevron-right not-last:after:opacity-60"
                     >
                         <a
                             href={crumb.href}

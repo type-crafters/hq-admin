@@ -12,7 +12,7 @@ export default function layout({
             <AppSidebar />
             <div className="h-full flex flex-col flex-1">
                 <AppHeader />
-                <main id="viewport-container" className="viewport-container flex flex-col flex-1 py-4 gap-4">
+                <main id="viewport-container" className="w-full lg:max-w-4xl xl:max-w-5xl 2xl:max-w-7xl mx-auto flex flex-col flex-1 p-4 gap-4">
                     <SetBreadCrumb title="Home" href="/" />
                     <BreadCrumbs />
                     <section id="viewport" className="flex-1">
