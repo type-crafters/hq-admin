@@ -1,27 +1,22 @@
 {
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-    "compilerOptions": {
-        "target": "ESNext",
-        "lib": ["DOM", "DOM.Iterable", "ESNext"],
-        "allowJs": true,
-        "baseUrl": "./",
-        "paths": {
-            "@/*": ["./src/*"],
-            "@components/*": ["./src/components/*"],
-            "@styles/*": ["./src/styles/*"],
-            "@common/*": ["src/common/*"]
-        },
-        "skipLibCheck": true,
-        "strict": true,
-        "noEmit": true,
-        "esModuleInterop": true,
-        "module": "ESNext",
+    "extends": ["./.svelte-kit/tsconfig.json"],
+	"compilerOptions": {
+        "module": "esnext",
+        "target": "esnext",
         "moduleResolution": "bundler",
-        "resolveJsonModule": true,
+        "lib": ["DOM", "DOM.Iterable", "ESNext"],
+        "rootDirs": [".", "./.svelte-kit/types"],
+        "esModuleInterop": true,
         "isolatedModules": true,
-        "jsx": "preserve",
-        "incremental": true,
-        "plugins": [{ "name": "next" }],
-    },
-    "exclude": ["node_modules"]
+        "verbatimModuleSyntax": true,
+        "allowImportingTsExtensions": true,
+        "strict": true,
+        "resolveJsonModule": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "noEmit": true,
+        "allowJs": true,
+        "checkJs": false
+    }
 }

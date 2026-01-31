@@ -1,1 +1,3 @@
-# TypeCrafters HQ | Admin Panel
+# TypeCrafters HQ Admin Panel
+
+ 
