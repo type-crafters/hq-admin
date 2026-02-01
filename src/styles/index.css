@@ -8,3 +8,9 @@ html,
 body {
     background-color: light-dark(white, var(--color-zinc-900));
 }
+
+i.bi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

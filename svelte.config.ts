@@ -6,7 +6,10 @@ const config: Config = {
         adapter: adapter(),
         alias: {
             $styles: "src/styles"
-        }
+        },
+    },
+    compilerOptions: {
+        runes: true
     }
 }
 
