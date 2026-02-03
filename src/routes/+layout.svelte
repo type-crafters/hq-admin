@@ -10,4 +10,9 @@
     const { children }: IndexLayoutProps = $props();
 </script>
 
+<svelte:head>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <title>HQ Admin</title>
+</svelte:head>
+
 {@render children?.()}
