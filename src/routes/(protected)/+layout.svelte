@@ -13,9 +13,11 @@
 <div class="w-full h-full flex">
     <Sidebar />
     <div class="flex-1">
-        <Header />
-        <main class="p-4">
-            {@render children?.()}
-        </main>
+        <div class="flex w-full h-full flex-col">
+            <Header />
+            <main class="w-full flex-1 p-4">
+                {@render children?.()}
+            </main>
+        </div>
     </div>
 </div>
