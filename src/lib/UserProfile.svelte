@@ -9,7 +9,7 @@
     const { profilePictureUrl, firstName, lastName, email }: UserProfileProps = $props();
 </script>
 
-<a href="/admin/me" class="w-full">
+<a href="/users/me" class="w-full">
     <figure class="w-full flex p-4 gap-4 items-center hover:bg-zinc-700 duration-200 rounded-lg">
         <div class="size-16 rounded-full overflow-hidden">
             <img src={profilePictureUrl} alt={`${firstName} ${lastName}'s profile`} class="object-cover object-center">
