@@ -1,3 +1,8 @@
-<section class="mx-auto w-full max-w-3xl px-4 h-full bg-blue-800">
-    <div id="area:invite-user" class="w-full h-full"></div>
-</section>
+<script>
+    import Container from "$lib/Container.svelte";
+
+</script>
+
+<Container id="new-user" maxWidth="max-w-3xl">
+
+</Container>

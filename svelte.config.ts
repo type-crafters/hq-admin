@@ -5,7 +5,8 @@ const config: Config = {
     kit: {
         adapter: adapter(),
         alias: {
-            $styles: "src/styles"
+            $styles: "src/styles",
+            $common: "src/common"
         },
     },
     compilerOptions: {
