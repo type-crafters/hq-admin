@@ -16,10 +16,6 @@ export const actions = {
             assert(typeof email === "string" && email);
             assert(typeof password === "string" && password);
         } catch (error: unknown) {
-            console.log(`typeof email: ${typeof email}`);
-            console.log(`typeof password: ${typeof password}`);
-            console.log(`typeof rememberMe: ${typeof rememberMe}`);
-
             if (error instanceof AssertionError) {
                 return fail(400);
             }

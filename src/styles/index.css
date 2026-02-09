@@ -14,6 +14,32 @@
     font-weight: 100 900;
 }
 
+@custom-variant picker {
+    &::picker(select) {
+        @slot;
+    }
+}
+
+@custom-variant picker-icon {
+    &::picker-icon {
+        @slot;
+    }
+}
+
+@custom-variant checkmark {
+    &::checkmark {
+        @slot;
+    }
+}
+
+@utility appearance-base-select {
+    appearance: base-select;
+}
+
+@utility interpolate-keywords {
+    interpolate-size: allow-keywords;
+}
+
 :root {
     color-scheme: light dark;
 }
@@ -22,8 +48,7 @@ html,
 body {
     font-family: 'Plus Jakarta', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     width: 100%;
-    height: 100vh;
-    /* overflow: hidden; */
+    min-height: 100vh;
     background-color: light-dark(white, var(--color-zinc-900));
 }
 

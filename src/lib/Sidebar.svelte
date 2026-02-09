@@ -44,7 +44,15 @@
                         <a href="/users">View all users</a>
                     </li>
                     <li class="hover:bg-zinc-700 duration-200 px-4 py-1">
-                        <a href="/users/new">Create a user</a>
+                        <a href="/users/new">Invite a user</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="text-sm font-semibold uppercase opacity-80">Messages</li>
+            <li class="my-4 *:ml-1 *:border-l *:border-zinc-600">
+                <ul class="space-y-1">
+                    <li class="hover:bg-zinc-700 duration-200 px-4 py-1">
+                        <a href="/messages">View all messages</a>
                     </li>
                 </ul>
             </li>
