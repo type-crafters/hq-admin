@@ -22,7 +22,7 @@
 
 </script>
 
-<Container maxWidth="max-w-5xl" class="space-y-8 my-8" centered scrollable>
+<Container maxWidth="max-w-5xl" class="space-y-8 my-8" centered>
     <div class="flex items-center gap-4">
         <i class="bi bi-person-square text-4xl"></i>
         <div>
@@ -79,9 +79,9 @@
                                 </td>
                                 <td class="group-not-last:border-b border-zinc-600">
                                     <div class="w-full flex gap-2 items-center">
-                                        <picture class="size-8 rounded-full bg-zinc-700 overflow-hidden">
+                                        <figure class="size-8 rounded-full bg-zinc-700 overflow-hidden">
                                             <img src={user.pfpSrc} alt="{user.name}'s profile" class="object-cover object-center"/>
-                                        </picture>
+                                        </figure>
                                         <span class="font-semibold line-clamp-1">
                                             {user.name}
                                         </span>
@@ -98,9 +98,7 @@
                                         {user.password ? "set" : "unset"}
                                     </span>
                                 </td>
-                                <td
-                                    class="group-not-last:border-b border-zinc-600"
-                                >
+                                <td class="group-not-last:border-b border-zinc-600">
                                     <span class="rounded-full px-2 py-1 text-xs border font-semibold {statusStyles[user. status]}">
                                         {user.status}
                                     </span>
@@ -111,7 +109,7 @@
                                         <span>{user.theme}</span>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="">
                                     <div class="relative group">
                                         <label class="flex w-fit p-1 rounded cursor-pointer hover:bg-zinc-800/75 duration-150">
                                             <i class="bi bi-three-dots-vertical"></i>

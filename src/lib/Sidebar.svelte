@@ -13,7 +13,7 @@
     />
     <nav class="p-4">
         <ul>
-            <li class="text-sm font-semibold uppercase opacity-80">
+            <li class="text-xs font-semibold uppercase opacity-80">
                 Team members
             </li>
             <li class="my-4 *:ml-1 *:border-l *:border-zinc-600">
@@ -26,7 +26,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="text-sm font-semibold uppercase opacity-80">Projects</li>
+            <li class="text-xs font-semibold uppercase opacity-80">Projects</li>
             <li class="my-4 *:ml-1 *:border-l *:border-zinc-600">
                 <ul class="space-y-1">
                     <li class="hover:bg-zinc-700 duration-200 px-4 py-1">
@@ -37,7 +37,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="text-sm font-semibold uppercase opacity-80">Admin users</li>
+            <li class="text-xs font-semibold uppercase opacity-80">Admin users</li>
             <li class="my-4 *:ml-1 *:border-l *:border-zinc-600">
                 <ul class="space-y-1">
                     <li class="hover:bg-zinc-700 duration-200 px-4 py-1">
@@ -48,7 +48,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="text-sm font-semibold uppercase opacity-80">Messages</li>
+            <li class="text-xs font-semibold uppercase opacity-80">Messages</li>
             <li class="my-4 *:ml-1 *:border-l *:border-zinc-600">
                 <ul class="space-y-1">
                     <li class="hover:bg-zinc-700 duration-200 px-4 py-1">

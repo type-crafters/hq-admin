@@ -38,7 +38,6 @@
     maxWidth="max-w-xl"
     class="space-y-8 my-8"
     centered
-    scrollable
 >
     <div class="flex items-center gap-4">
         <i class="bi bi-person-square text-4xl"></i>
