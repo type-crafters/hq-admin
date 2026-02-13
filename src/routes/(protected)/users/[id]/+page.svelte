@@ -9,6 +9,17 @@
     // svelte-ignore state_referenced_locally
     let form = $state(structuredClone(data));
 
+    // svelte-ignore state_referenced_locally
+    let preview = $state(data.profilePictureUrl);
+
+    const changeFile = (event: Event) => {
+        const input = event.currentTarget as HTMLInputElement;
+        const file = input.files?.[0];
+        if (preview && preview !== data.profilePictureUrl) {
+            URL.revokeObjectURL(preview);
+        }
+        preview = URL.createObjectURL(file!);
+    };
 </script>
 
 <Container
@@ -28,6 +39,7 @@
     </div>
     <form
         method="POST"
+        enctype="multipart/form-data"
         class="rounded-lg bg-zinc-700/20 border border-zinc-600 p-4 space-y-8"
     >
         <div class="w-full flex flex-col items-center gap-4">
@@ -35,9 +47,9 @@
                 <figure
                     class="size-24 rounded-full overflow-hidden bg-zinc-700 border-2 border-zinc-600 hover:brightness-50 duration-150 cursor-pointer"
                 >
-                    <img src={data.profilePictureUrl} alt="{data.firstName} {data.lastName}'s profile" class="object-cover object-center" />
+                    <img src={preview} alt="{data.firstName} {data.lastName}'s profile" class="w-full h-full object-cover object-center" />
                 </figure>
-                <input type="file" name="" class="hidden" accept="image/*"/>
+                <input type="file" name="profilePicture" id="profilePicture" class="hidden" accept="image/*" onchange={changeFile}/>
             </label>
             <div class="flex flex-col items-center gap-3 text-sm">
                 <h2 class="text-xl font-semibold">
@@ -49,6 +61,7 @@
                         {data.id}
                     </span>
                     <button
+                        type="button"
                         aria-label="Copy UUID"
                         class="opacity-60 hover:opacity-100 duration-150 cursor-pointer"
                         onclick={() => navigator.clipboard.writeText("")}
