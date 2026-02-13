@@ -123,8 +123,10 @@
                                                     <a href="/users/{user.id}">View details</a>
                                                 </li>
                                                 <li class="hover:bg-zinc-700 duration-150 text-red-700 cursor-pointer">
-                                                    <span>Delete user</span>
-                                                </li> <!-- @todo implement -->
+                                                    <form method="POST" class="contents">
+                                                        <button type="submit" name="userId" id="userId" value={user.id} class="cursor-pointer">Delete user</button>
+                                                    </form>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

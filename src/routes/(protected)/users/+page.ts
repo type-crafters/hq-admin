@@ -18,7 +18,7 @@ export const load = async ({ fetch }) => {
     //         },
     //     ],
     // };
-    
+
     /** Use for API testing */
     const url = new URL(import.meta.env.VITE_API_URL!);
     url.pathname = "/users";
@@ -29,17 +29,14 @@ export const load = async ({ fetch }) => {
     const data: ListUsersResponse = await response.json();
 
     return {
-        rows: data.items.map((user) => {
-            return {
-                id: user.id,
-                name: [user.firstName, user.lastName].join(" "),
-                email: user.email,
-                pfpSrc: user.profilePictureUrl,
-                password: user.password,
-                theme: user.preferredTheme,
-                status: user.status
-            } satisfies UserRow;
-        })
+        rows: data.items.map((user) => ({
+            id: user.id,
+            name: [user.firstName, user.lastName].join(" "),
+            email: user.email,
+            pfpSrc: user.profilePictureUrl,
+            password: user.password,
+            theme: user.preferredTheme,
+            status: user.status
+        } satisfies UserRow))
     };
-
 };
