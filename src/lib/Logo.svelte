@@ -1,4 +1,4 @@
-<h1 class="text-3xl font-mono py-2"><!--
+<h1 class="text-lg lg:text-3xl font-mono py-2"><!--
     --><span class="text-yellow-800 dark:text-blue-500">(</span><!--
     --><span class="text-teal-700 dark:text-emerald-300">Type</span><!--
     --><span class="text-yellow-800 dark:text-blue-500">)</span><!--

@@ -5,18 +5,18 @@
     import type { PageProps } from "./$types";
     let search: string = $state("");
 
-    const statusStyles: Record<UserStatus, string> = {
-        [UserStatus.Unverified]: "text-yellow-700 border-yellow-700",
-        [UserStatus.Pending]: "text-slate-700 border-slate-700",
-        [UserStatus.Active]: "text-green-700 border-green-700",
-        [UserStatus.Deleted]: "text-green-700 border-green-700",
-    };
+    const statusStyles: Map<UserStatus, string> = new Map([
+        [UserStatus.Unverified, "badge-warning"],
+        [UserStatus.Pending, "badge-info"],
+        [UserStatus.Active, "badge-success"],
+        [UserStatus.Deleted, "badge-error"]
+    ]);
 
-    const themeIcons: Record<ColorScheme, string> = {
-        [ColorScheme.Light]: "bi-sun",
-        [ColorScheme.Dark]: "bi-moon",
-        [ColorScheme.System]: "bi-display",
-    };
+    const themeIcons: Map<ColorScheme, string> = new Map([
+        [ColorScheme.Light, "bi-sun"],
+        [ColorScheme.Dark, "bi-moon"],
+        [ColorScheme.System, "bi-display"]
+    ]);
 
     let { data }: PageProps = $props();
 
@@ -44,6 +44,7 @@
                     id="searchUsers"
                     placeholder="Search users by name..."
                     class="min-w-0 flex-1 focus:outline-none"
+                    autocomplete="off"
                     bind:value={search}
                 />
                 {#if search}
@@ -57,84 +58,63 @@
                 {/if}
             </div>
             <div>
-                <table class="w-full border-separate border-spacing-0 rounded-lg border border-zinc-600">
-                    <thead>
-                        <tr class="group first:border-b border-zinc-600 text-left *:p-2">
-                            <th class="group-first:border-b border-zinc-600">ID</th>
-                            <th class="group-first:border-b border-zinc-600">User</th>
-                            <th class="group-first:border-b border-zinc-600">Email</th>
-                            <th class="group-first:border-b border-zinc-600">Password</th>
-                            <th class="group-first:border-b border-zinc-600">Status</th>
-                            <th class="group-first:border-b border-zinc-600">Theme</th>
-                            <th class="group-first:border-b border-zinc-600"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {#each data.rows as user}
-                            <tr class="group not-last:border-b border-zinc-600 *:not-last:p-2 hover:bg-zinc-700 duration-150">
-                                <td class="group-not-last:border-b border-zinc-600">
-                                    <span class="text-xs opacity-60 line-clamp-1">
-                                        UUID:{user.id.split("-").at(-1)}
-                                    </span>
-                                </td>
-                                <td class="group-not-last:border-b border-zinc-600">
-                                    <div class="w-full flex gap-2 items-center">
-                                        <figure class="size-8 rounded-full bg-zinc-700 overflow-hidden">
-                                            <img src={user.pfpSrc} alt="{user.name}'s profile" class="object-cover object-center"/>
-                                        </figure>
-                                        <span class="font-semibold line-clamp-1">
-                                            {user.name}
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="group-not-last:border-b border-zinc-600">
-                                    <span class="opacity-60 line-clamp-1">{user.email}</span>
-                                </td>
-                                <td class="group-not-last:border-b border-zinc-600">
-                                    <span class="rounded-full px-2 py-1 text-xs border font-semibold {user.password
-                                        ? 'border-sky-700 text-sky-700'
-                                        : 'border-slate-700 text-slate-700'}"
-                                    >
-                                        {user.password ? "set" : "unset"}
-                                    </span>
-                                </td>
-                                <td class="group-not-last:border-b border-zinc-600">
-                                    <span class="rounded-full px-2 py-1 text-xs border font-semibold {statusStyles[user. status]}">
-                                        {user.status}
-                                    </span>
-                                </td>
-                                <td class="group-not-last:border-b border-zinc-600">
-                                    <div class="flex items-center gap-2 opacity-60">
-                                        <i class="bi {themeIcons[user.theme]} text-sm"></i>
-                                        <span>{user.theme}</span>
-                                    </div>
-                                </td>
-                                <td class="">
-                                    <div class="relative group">
-                                        <label class="flex w-fit p-1 rounded cursor-pointer hover:bg-zinc-800/75 duration-150">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                            <input id="showOptions" type="checkbox" class="hidden">
-                                        </label>
-                                        <div class="hidden group-has-checked:block absolute right-0 -translate-x-4 -ml-4 z-5 w-max max-w-50 *:first:pt-2 *:last:pb-2 bg-zinc-800 space-y-2 border border-zinc-600 rounded shadow-md">
-                                            <h4 class="px-4 font-semibold">Actions</h4>
-                                            <hr class="border-zinc-600">
-                                            <ul class="*:py-2 *:px-4 border-zinc-600">
-                                                <li class="hover:bg-zinc-700 duration-150 cursor-pointer">
-                                                    <a href="/users/{user.id}">View details</a>
-                                                </li>
-                                                <li class="hover:bg-zinc-700 duration-150 text-red-700 cursor-pointer">
-                                                    <form method="POST" class="contents">
-                                                        <button type="submit" name="userId" id="userId" value={user.id} class="cursor-pointer">Delete user</button>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </td>
+                <div class="overflow-auto rounded-box border border-zinc-700">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Status</th>
+                                <th>Theme</th>
+                                <th></th>
                             </tr>
-                        {/each}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {#each data.rows as user}
+                                <tr>
+                                    <td>
+                                        <a href="/users/{user.id}" class="text-xs opacity-60 line-clamp-1 hover:underline">
+                                            UUID:{user.id.split("-").at(-1)}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <div class="w-full flex gap-2 items-center">
+                                            <div class="avatar">
+                                                <div class="size-8 rounded-full">
+                                                    <img src={user.pfpSrc} alt="{user.name}'s profile">
+                                                </div>
+                                            </div>
+                                            <span class="font-semibold line-clamp-1">
+                                                {user.name}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="opacity-60 line-clamp-1">{user.email}</span>
+                                    </td>
+                                    <td>
+                                        <div class="badge badge-sm rounded-full badge-outline {user.password ? "badge-info" : "badge-warning"}">
+                                            {user.password ? "set" : "unset"}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="badge badge-sm rounded-full badge-outline {statusStyles.get(user.status)}">
+                                            {user.status}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="flex items-center gap-2 opacity-60">
+                                            <i class="bi {themeIcons.get(user.theme)} text-sm"></i>
+                                            <span>{user.theme}</span>
+                                        </div>
+                                    </td> 
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="flex items-center justify-between">
                 <div>

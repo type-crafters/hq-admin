@@ -1,57 +1,59 @@
 <script lang="ts">
     import UserProfile from "./UserProfile.svelte";
+    interface SidebarProps {
+        input: string;
+    }
+
+    const { input }: SidebarProps = $props();
 </script>
 
-<aside
-    class="sticky top-0 w-80 h-screen bg-zinc-800 shadow-md shadow-neutral-900"
->
-    <UserProfile
-        profilePictureUrl="/img/placeholder.svg"
-        firstName="Diego"
-        lastName="Chan"
-        email="xdiego.chanx@gmail.com"
-    />
-    <nav class="p-4">
-        <ul>
-            <li class="text-xs font-semibold uppercase opacity-80">
-                Team members
-            </li>
-            <li class="my-4 *:ml-1 *:border-l *:border-zinc-600">
-                <ul class="space-y-1">
-                    <li class="hover:bg-zinc-700 duration-200 px-4 py-1">
+<aside class="drawer-side">
+    <label for={input} aria-label="close sidebar" class="drawer-overlay"></label>
+    <nav class="min-h-full w-80 bg-zinc-800 shadow-md shadow-neutral-900">
+        <UserProfile
+            profilePictureUrl="/img/placeholder.svg"
+            firstName="Diego"
+            lastName="Chan"
+            email="xdiego.chanx@gmail.com"
+        />
+        <ul class="menu rounded-box w-full">
+            <li>
+                <span>Team members</span>
+                <ul>
+                    <li>
                         <a href="/members">View all members</a>
                     </li>
-                    <li class="hover:bg-zinc-700 duration-200 px-4 py-1">
+                    <li>
                         <a href="/members/new">Add a member</a>
                     </li>
                 </ul>
             </li>
-            <li class="text-xs font-semibold uppercase opacity-80">Projects</li>
-            <li class="my-4 *:ml-1 *:border-l *:border-zinc-600">
-                <ul class="space-y-1">
-                    <li class="hover:bg-zinc-700 duration-200 px-4 py-1">
+            <li>
+                <span>Projects</span>
+                <ul>
+                    <li>
                         <a href="/projects">View all projects</a>
                     </li>
-                    <li class="hover:bg-zinc-700 duration-200 px-4 py-1">
+                    <li>
                         <a href="/projects/new">Create a project</a>
                     </li>
                 </ul>
             </li>
-            <li class="text-xs font-semibold uppercase opacity-80">Admin users</li>
-            <li class="my-4 *:ml-1 *:border-l *:border-zinc-600">
-                <ul class="space-y-1">
-                    <li class="hover:bg-zinc-700 duration-200 px-4 py-1">
+            <li>
+                <span>Admin users</span>
+                <ul>
+                    <li>
                         <a href="/users">View all users</a>
                     </li>
-                    <li class="hover:bg-zinc-700 duration-200 px-4 py-1">
+                    <li>
                         <a href="/users/new">Invite a user</a>
                     </li>
                 </ul>
             </li>
-            <li class="text-xs font-semibold uppercase opacity-80">Messages</li>
-            <li class="my-4 *:ml-1 *:border-l *:border-zinc-600">
-                <ul class="space-y-1">
-                    <li class="hover:bg-zinc-700 duration-200 px-4 py-1">
+            <li>
+                <span>Messages</span>
+                <ul>
+                    <li>
                         <a href="/messages">View all messages</a>
                     </li>
                 </ul>
