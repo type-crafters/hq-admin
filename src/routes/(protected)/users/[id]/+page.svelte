@@ -1,6 +1,5 @@
 <script lang="ts">
-    import { ColorScheme } from "$common/enum/ColorScheme";
-    import { UserStatus } from "$common/enum/UserStatus";
+    import { ColorScheme, UserStatus } from "@typecrafters/hq-types";
     import Container from "$lib/Container.svelte";
     import type { PageProps } from "./$types";
 
@@ -20,6 +19,7 @@
         }
         preview = URL.createObjectURL(file!);
     };
+
 </script>
 
 <Container
@@ -64,7 +64,7 @@
                         type="button"
                         aria-label="Copy UUID"
                         class="opacity-60 hover:opacity-100 duration-150 cursor-pointer"
-                        onclick={() => navigator.clipboard.writeText("")}
+                        onclick={() => navigator.clipboard.writeText(data.id ?? "")}
                     >
                         <i class="bi bi-copy text-xs"></i>
                     </button>
@@ -150,11 +150,9 @@
             </legend>
             <div class="space-y-6">
                 <div class="space-y-2">
-                    <label
-                        for="status"
-                        class="block font-semibold opacity-80 text-sm"
-                        >Status</label
-                    >
+                    <label for="status" class="block font-semibold opacity-80 text-sm">
+                        Status
+                    </label>
                     <select
                         name="status"
                         id="status"

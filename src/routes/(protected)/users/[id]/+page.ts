@@ -1,6 +1,4 @@
-import { ColorScheme } from "$common/enum/ColorScheme";
-import { UserStatus } from "$common/enum/UserStatus";
-import type { GetUserResponse } from "$common/interface/GetUserResponse";
+import { type User, ColorScheme, UserStatus } from "@typecrafters/hq-types";
 
 export const load = async ({ fetch, params }) => {
     // /** Use for UI testing */
@@ -16,16 +14,15 @@ export const load = async ({ fetch, params }) => {
     //     createdAt: new Date().toISOString(),
     //     lastUpdatedAt: new Date().toISOString(),
     //     preferredTheme: ColorScheme.Dark
-    // }
+    // } satisfies User;
 
     /** Use for API testing */
-    const url = new URL(import.meta.env.VITE_API_URL!);
-    url.pathname = `/users/${params.id}`;
+    const url = new URL(`/users/${params.id}`, import.meta.env.VITE_API_URL!);
 
     const response = await fetch(url, { method: "GET" });
 
     if (response.ok) {
-        const data: GetUserResponse = await response.json();
-        return data.user;
+        const data: User = await response.json();
+        return data;
     }
 };
