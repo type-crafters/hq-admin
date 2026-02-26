@@ -1,11 +1,10 @@
-import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
 
-export default defineConfig({
+export default defineConfig({ 
     plugins: [
-        sveltekit(),
-        tailwindcss()
-    ]
+        tailwindcss(), 
+        sveltekit()
+    ] 
 });

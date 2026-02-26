@@ -1,22 +1,15 @@
 {
-    "extends": ["./.svelte-kit/tsconfig.json"],
+	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
-        "module": "esnext",
-        "target": "esnext",
-        "moduleResolution": "bundler",
-        "lib": ["DOM", "DOM.Iterable", "ESNext"],
-        "rootDirs": [".", "./.svelte-kit/types"],
-        "esModuleInterop": true,
-        "isolatedModules": true,
-        "verbatimModuleSyntax": true,
-        "allowImportingTsExtensions": true,
-        "strict": true,
-        "resolveJsonModule": true,
-        "forceConsistentCasingInFileNames": true,
-        "skipLibCheck": true,
-        "sourceMap": true,
-        "noEmit": true,
-        "allowJs": true,
-        "checkJs": false
-    }
+		"rewriteRelativeImportExtensions": true,
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"moduleResolution": "bundler"
+	}
 }

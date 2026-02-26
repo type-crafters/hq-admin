@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@plugin "daisyui";
+@import 'tailwindcss';
+@plugin 'daisyui';
 
 @font-face {
     font-family: 'Plus Jakarta';
@@ -13,32 +13,6 @@
     src: url('/font/PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype');
     font-style: italic;
     font-weight: 100 900;
-}
-
-@custom-variant picker {
-    &::picker(select) {
-        @slot;
-    }
-}
-
-@custom-variant picker-icon {
-    &::picker-icon {
-        @slot;
-    }
-}
-
-@custom-variant checkmark {
-    &::checkmark {
-        @slot;
-    }
-}
-
-@utility appearance-base-select {
-    appearance: base-select;
-}
-
-@utility interpolate-keywords {
-    interpolate-size: allow-keywords;
 }
 
 :root {
@@ -57,4 +31,8 @@ i.bi {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+button, input[type="submit"], input[type="reset"] {
+    cursor: pointer;
 }

@@ -9,14 +9,14 @@
 
 <aside class="drawer-side">
     <label for={input} aria-label="close sidebar" class="drawer-overlay"></label>
-    <nav class="min-h-full w-80 bg-zinc-800 shadow-md shadow-neutral-900">
+    <nav class="min-h-full flex flex-col w-80 bg-zinc-800 shadow-md shadow-neutral-900">
         <UserProfile
             profilePictureUrl="/img/placeholder.svg"
             firstName="Diego"
             lastName="Chan"
             email="xdiego.chanx@gmail.com"
         />
-        <ul class="menu rounded-box w-full">
+        <ul class="menu rounded-box w-full flex-1">
             <li>
                 <span>Team members</span>
                 <ul>
@@ -46,7 +46,7 @@
                         <a href="/users">View all users</a>
                     </li>
                     <li>
-                        <a href="/users/new">Invite a user</a>
+                        <a href="/users/invite">Invite a user</a>
                     </li>
                 </ul>
             </li>

@@ -1,18 +1,18 @@
 <script lang="ts">
-    import "$styles/index.css";
-    import "bootstrap-icons/font/bootstrap-icons.min.css";
-    import type { Snippet } from "svelte";
+	import favicon from "$lib/assets/favicon.svg";
+	import "bootstrap-icons/font/bootstrap-icons.min.css";
+	import "$styles/index.css";
+	import type { Snippet } from "svelte";
+	interface IndexLayoutProps {
+		children?: Snippet;
+	}
 
-    interface IndexLayoutProps {
-        children?: Snippet;
-    }
-
-    const { children }: IndexLayoutProps = $props();
+	let { children }: IndexLayoutProps = $props();
 </script>
 
 <svelte:head>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <title>HQ Admin</title>
+	<title>Admin Panel | TypeCrafters HQ</title>
+	<link rel="icon" href={favicon} />
 </svelte:head>
-
 {@render children?.()}
+

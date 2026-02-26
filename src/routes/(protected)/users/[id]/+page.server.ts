@@ -1,61 +1,48 @@
-import { UploadType } from "$common/enum/UploadType";
-import type { Actions } from "./$types";
+import type { ModalData } from "$common/interface/ModalData.js";
+import { API_URL, NODE_ENV } from "$env/static/private";
+import { error, redirect, type Actions } from "@sveltejs/kit";
+import { ColorScheme, UserStatus, type SimpleUser } from "@typecrafters/hq-types";
 
-export const actions: Actions = {
-    default: async ({request, params, fetch}) => {
-        const id = params.id;
-        const data = await request.formData();
-        const picture = data.get("profilePicture");
+export const load = async ({ params, fetch }): Promise<SimpleUser> => {
+    if (NODE_ENV === "production") {
+        const id: string = params.id;
 
-        const body = Object.fromEntries(Object.entries({
-            firstName: data.get("firstName")?.valueOf(),
-            lastName: data.get("lastName")?.valueOf(),
-            email: data.get("email")?.valueOf(),
-            status: data.get("status")?.valueOf(),
-            preferredTheme: data.get("preferredTheme")?.valueOf()
-        }).filter(([_, v]) => !!v));
+        const url = new URL(`/users/${id}`, API_URL);
+        const response = await fetch(url, { method: "GET" });
 
-        let key;
-
-        if (picture instanceof File) {
-            const signRequestUrl = new URL(`/users/${id}/upload`, process.env.VITE_API_URL!);
-            if (picture.type.startsWith("image/") && picture.size) {
-                const signedUrlResponse = await fetch(signRequestUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        upload: UploadType.ProfilePicture,
-                        contentType: picture.type
-                    })
-                });
-
-                if (signedUrlResponse.ok) {
-                    const response = await signedUrlResponse.json();
-
-                    const url = response["url"];
-                    key = response["key"];
-
-                    await fetch(url, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": picture.type
-                        },
-                        body: picture
-                    });
-                }
-            }
+        if (response.ok) {
+            const user: SimpleUser = await response.json();
+            return user;
+        } else {
+            throw error(response.status, "Failed to fetch user");
         }
-
-        const updateUrl = new URL(`/users/${id}`, process.env.VITE_API_URL!);
-
-        const updateResponse = await fetch(updateUrl, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ ...body, ...(key && { profilePictureUrl: key }) })
-        });
+    } else {
+        return {
+            id: "babbdebc-0b7e-4935-a474-c2bea0b1c01d",
+            firstName: "John",
+            lastName: "Doe",
+            email: "name@example.com",
+            password: true,
+            permissions: ["create:user", "list:user", "update:user", "delete:user"],
+            status: UserStatus.Unverified,
+            createdAt: Date.now(),
+            lastUpdatedAt: Date.now(),
+            profilePictureUrl: "/img/link-profile-picture.png",
+            preferredTheme: ColorScheme.System
+        } satisfies SimpleUser;
     }
 }
+
+export const actions: Actions = {
+    delete: async ({ params, fetch }): Promise<ModalData> => {
+        return redirect(303, "/users");
+    },
+
+    patch: async ({ request, params, fetch }): Promise<ModalData> => {
+        return {
+            title: "",
+            message: "",
+            buttonText: ""
+        } satisfies ModalData
+    }
+};
