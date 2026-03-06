@@ -17,7 +17,8 @@
     let alert: Partial<AlertData> = $state({});
     let showAlert: boolean = $derived(Object.keys(alert).length > 0);
 
-    let { form: modal, data: user }: PageProps = $props();
+    let { form: f, data: user }: PageProps = $props();
+    let modal: ModalData | null = $derived(f ? {...f} : null);
     let showModal: boolean = $derived(
         modal != null && Object.keys(modal).length > 0,
     );
@@ -94,7 +95,6 @@
         }
 
         return async ({ update }) => {
-            await update();
             try {
                 await update();
             } finally {

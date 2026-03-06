@@ -10,10 +10,10 @@ export const actions: Actions = {
 
         const form = await request.formData();
 
-        const firstName = form.get("firstName")?.valueOf();
-        const lastName = form.get("lastName")?.valueOf();
-        const email = form.get("email")?.valueOf();
-        const permissionstr = form.get("permissions")?.valueOf();
+        const firstName = form.get("firstName");
+        const lastName = form.get("lastName");
+        const email = form.get("email");
+        const permissionstr = form.get("permissions");
 
         let permissions: string[] = [];
 
