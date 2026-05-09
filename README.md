@@ -1,1 +1,0 @@
-# TypeCrafters HQ Admin Panel

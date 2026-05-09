@@ -1,0 +1,1 @@
+export type MediaVisbility = "public" | "protected" | "private";

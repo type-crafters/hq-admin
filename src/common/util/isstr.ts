@@ -1,1 +1,0 @@
-export const isstr = (v: unknown): v is string => v != null && typeof v === "string" && v.trim() !== "";
