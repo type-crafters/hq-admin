@@ -1,9 +1,182 @@
-import type { JSX } from "react";
+"use client";
 
-export default function UserView(): JSX.Element {
+import { User } from "@/common/interface/User";
+import UserStatusBadge from "@/components/UserStatusBadge";
+import Link from "next/link";
+import { useEffect, useState, type JSX } from "react";
+
+export default function UserListView(): JSX.Element {
+    const [query, setQuery] = useState("");
+    const [users, setUsers] = useState<Array<User>>([]);
+
+    useEffect(() => {
+        fetch("/api/hq/users")
+            .then(response => response.json())
+            .then(data => setUsers(data))
+            .catch(error => console.error(error));
+    }, [])
+
+    useEffect(() => console.log(users), [users])
+
     return (
-        <>
-        
-        </>
+        <div className="space-y-8">
+            <div>
+                <h2 className="text-2xl font-bold">Users</h2>
+            </div>
+            <div className="w-full flex items-center justify-between gap-4">
+                <div className="flex-1">
+                    <div className="w-full max-w-sm rounded border border-zinc-500 bg-zinc-900/50 flex items-center gap-2 px-3 py-1 outline outline-transparent has-focus:outline-indigo-500 duration-150">
+                        <i className="bi bi-search text-zinc-500"></i>
+                        <input
+                            type="text"
+                            id="search"
+                            className="flex-1 focus:outline-none placeholder:text-zinc-500"
+                            placeholder="Search projects..."
+                            value={query}
+                            onInput={(e) => setQuery(e.currentTarget.value)}
+                        />
+                        {query && (
+                            <button aria-label="Clear search" onClick={() => setQuery("")}>
+                                <i className="bi bi-x-lg"></i>
+                            </button>
+                        )}
+                    </div>
+                </div>
+                <div className="flex items-center gap-4">
+                    <button aria-label="Refresh table" className="rounded-full border border-zinc-500">
+                        <i className="bi bi-arrow-clockwise text-lg p-2"></i>
+                    </button>
+                    <button className="flex items-center gap-1 px-4 py-1 rounded border border-zinc-500">
+                        <span>Actions</span>
+                        <i className="bi bi-caret-down-fill text-xs"></i>
+                    </button>
+                    <Link
+                        href="/hq/users/new"
+                        className="flex items-center gap-1 px-4 py-1 rounded bg-indigo-500 border border-indigo-500 hover:bg-indigo-600 hover:border-indigo-600 duration-150"
+                    >
+                        New user
+                    </Link>
+                </div>
+            </div>
+            <div className="overflow-x-auto">
+                <table className="w-full rounded-lg border border-neutral-500 border-separate border-spacing-0">
+                    <thead>
+                        <tr>
+                            <th className="text-left font-bold border-b border-neutral-500 p-2">
+                                <div className="flex items-center gap-1">
+                                    <span>ID</span>
+                                    <button aria-label="Sort by ID" className="rounded-full hover:bg-zinc-700 duration-150">
+                                        <i className="bi bi-arrow-down-up text-[10px] p-1"></i>
+                                    </button>
+                                </div>
+                            </th>
+                            <th className="text-left font-bold border-b border-neutral-500 p-2">
+                                <div className="flex items-center gap-1">
+                                    <span>Name</span>
+                                    <button aria-label="Sort by name" className="rounded-full hover:bg-zinc-700 duration-150">
+                                        <i className="bi bi-arrow-down-up text-[10px] p-1"></i>
+                                    </button>
+                                </div>
+                            </th>
+                            <th className="text-left font-bold border-b border-neutral-500 p-2">
+                                <div className="flex items-center gap-1">
+                                    <span>Email address</span>
+                                    <button aria-label="Sort by email" className="rounded-full hover:bg-zinc-700 duration-150">
+                                        <i className="bi bi-arrow-down-up text-[10px] p-1"></i>
+                                    </button>
+                                </div>
+                            </th>
+                            <th className="text-left font-bold border-b border-neutral-500 p-2">
+                                <div className="flex items-center gap-1">
+                                    <span>Role</span>
+                                    <button aria-label="Sort by role" className="rounded-full hover:bg-zinc-700 duration-150">
+                                        <i className="bi bi-arrow-down-up text-[10px] p-1"></i>
+                                    </button>
+                                </div>
+                            </th>
+                            <th className="text-left font-bold border-b border-neutral-500 p-2">
+                                <div className="flex items-center gap-1">
+                                    <span>Password</span>
+                                </div>
+                            </th>
+                            <th className="text-left font-bold border-b border-neutral-500 p-2">
+                                <div className="flex items-center gap-1">
+                                    <span>Status</span>
+                                    <button aria-label="Sort by status" className="rounded-full hover:bg-zinc-700 duration-150">
+                                        <i className="bi bi-arrow-down-up text-[10px] p-1"></i>
+                                    </button>
+                                </div>
+                            </th>
+                            <th className="text-left font-bold border-b border-neutral-500 p-2">
+                                <div className="flex items-center gap-1">
+                                    <span>Permissions</span>
+                                    <button aria-label="Sort by permission count" className="rounded-full hover:bg-zinc-700 duration-150">
+                                        <i className="bi bi-arrow-down-up text-[10px] p-1"></i>
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.length ? users.map((user, i) => (
+                            <tr key={i} className="group">
+                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
+                                    <Link href={`/hq/users/${user._id}`} className="text-xs opacity-60 hover:underline">
+                                        {user._id}
+                                    </Link>
+                                </td>
+                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
+                                    <div className="flex items-center gap-2">
+                                        <img
+                                            src={user.profilePictureUrl}
+                                            alt={`${user.firstName}'s profile`}
+                                            className="size-9 rounded-full object-center object-cover border border-zinc-500"
+                                        />
+                                        <span>{user.firstName} {user.lastName}</span>
+                                    </div>
+                                </td>
+                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
+                                    <p className="max-w-xs truncate">
+                                        {user.email}
+                                    </p>
+                                </td>
+                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
+                                    <p className="max-w-xs truncate">
+                                        {user.role}
+                                    </p>
+                                </td>
+                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
+                                    {user.password ? (
+                                        <span className="inline-flex gap-1 text-sm px-2 rounded-full border bg-green-950 text-green-400 border-green-500">
+                                            <i className="bi bi-check"></i>
+                                            Set
+                                        </span>
+                                    ) : (
+                                        <span className="inline-flex gap-1 text-sm px-2 rounded-full border bg-red-950 text-red-400 border-red-500">
+                                            <i className="bi bi-x"></i>
+                                            Unset
+                                        </span>
+                                    )}
+                                </td>
+                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
+                                    <UserStatusBadge status={user.status} />
+                                </td>
+                                <td>
+                                    {user.permissions.length}
+                                </td>
+                            </tr>
+                        )) : (
+                            <tr>
+                                <td colSpan={9999}>
+                                    <p className="w-full p-2 text-center opacity-60">
+                                        No rows were found.
+                                    </p>
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 }

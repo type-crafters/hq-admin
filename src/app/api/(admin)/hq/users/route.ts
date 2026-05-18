@@ -1,0 +1,25 @@
+export async function GET() {
+	const url = new URL("/api/users", process.env.API_URL);
+
+	try {
+		const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+		if (response.ok) {
+			const data = await response.json();
+			return Response.json(data, { status: response.status });
+		}
+
+		if (response.status === 404) {
+			return Response.json({ error: "Not found" }, { status: 404 });
+		}
+
+		return Response.json({ error: "Request failed" }, { status: response.status });
+	} catch {
+		return Response.json({ error: "Unexpected error" }, { status: 500 });
+	}
+}

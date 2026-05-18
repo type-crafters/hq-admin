@@ -11,11 +11,11 @@ export default function AdminLayout({
     children
 }: AdminLayoutProps): JSX.Element {
     return (
-        <div className="flex w-full h-screen">
+        <div className="flex w-full h-screen overflow-y-hidden">
             <AdminSidebar />
-            <div className="flex-1 flex flex-col h-full">
+            <div className="flex-1 flex flex-col h-full overflow-y-hidden">
                 <AdminHeader />
-                <main className="flex-1 p-4">
+                <main className="flex-1 p-4 overflow-y-auto">
                     <div className="w-full max-w-6xl space-y-4 mx-auto">
                         <Breadcrumbs />
                         <div className="w-full">
