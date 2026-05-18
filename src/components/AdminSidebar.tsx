@@ -38,14 +38,13 @@ export default function AdminSidebar(): JSX.Element {
                         <ul className="mt-2 ml-6 space-y-2 border-l border-zinc-700 pl-4">
                             <li>
                                 <Link
-                                    href="/hq/team"
+                                    href="/hq/users"
                                     className="flex items-center gap-2 px-3 py-2 rounded opacity-60 hover:opacity-100 hover:bg-zinc-700 duration-150"
                                 >
-                                    <i className="bi bi-people text-lg"></i>
-                                    <p>Team Members</p>
+                                    <i className="bi bi-person-circle"></i>
+                                    <p>Users</p>
                                 </Link>
                             </li>
-
                             <li>
                                 <Link
                                     href="/hq/projects"

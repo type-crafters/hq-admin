@@ -48,7 +48,7 @@ export default function LoginPage(): JSX.Element {
                             <div className="space-y-1 text-center">
                                 <h2 className="text-indigo-500 uppercase text-lg">TypeCrafters HQ</h2>
                                 <h1 className="text-2xl font-bold uppercase">Admin Control Panel</h1>
-                                <p className="text-neutral-400">
+                                <p className="text-zinc-400">
                                     Authorized personnel only.&nbsp;
                                     <strong className="font-normal text-pink-500">
                                         All access is strictly controlled.

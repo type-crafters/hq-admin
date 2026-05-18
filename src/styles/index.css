@@ -37,3 +37,74 @@ details[open]::details-content {
     height: auto;
 }
 
+.custom-select,
+.custom-select::picker(select) {
+    appearance: base-select;
+    border: 1px solid var(--color-zinc-500);
+    border-radius: 0.25rem;
+    padding-block: 0.25rem;
+    font-size: 1.125rem;
+    interpolate-size: allow-keywords;
+}
+
+.custom-select {
+    border: 1px solid var(--color-zinc-500);
+    border-radius: 0.25rem;
+    background-color: color-mix(in oklab, var(--color-zinc-800) 60%, transparent);
+    outline: 1px solid transparent;
+    transition: all 150ms ease;
+    padding-inline: 0.5rem;
+    cursor: pointer;
+}
+
+.custom-select::picker(select) {
+    position: relative;
+    background-color: var(--color-zinc-800);
+    top: calc(anchor(bottom) + 0.25rem);
+    interpolate-size: allow-keywords;
+    opacity: 1;
+    transition: opacity 300ms ease, display 300ms allow-discrete, overlay 300ms allow-discrete;
+}
+
+@starting-style {
+    .custom-select::picker(select) {
+        opacity: 0;
+    }
+}
+
+.custom-select:not(:open)::picker(select) {
+    opacity: 0;
+}
+
+.custom-select option {
+    padding-inline: 0.5rem;
+    padding-block: 0.25rem;
+    transition: all 150ms ease;
+}
+
+.custom-select option:hover {
+    background-color: var(--color-zinc-700);
+}
+
+.custom-select:focus,
+.custom-select:focus-visible,
+.custom-select:focus-within {
+    outline: 1px solid var(--color-indigo-500);
+}
+
+.custom-select::picker-icon {
+    content: url('/img/chevron-down.svg');
+    transform: translateY(2px);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.custom-select option:checked {
+    font-weight: 700;
+}
+
+.custom-select option::checkmark {
+    order: 1;
+    margin-left: auto;
+    content: url('/img/check2.svg');
+}
