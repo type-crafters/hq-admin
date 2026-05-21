@@ -5,18 +5,20 @@ interface ToggleProps {
     id: string;
     name?: string;
     state: boolean;
+    setState: Dispatch<SetStateAction<boolean>>;
     label: string;
     labelPosition: "left" | "right";
-    setState: Dispatch<SetStateAction<boolean>>;
+    disabled?: boolean;
 }
 
 export default function Toggle({
     id,
     name=id,
+    state,
+    setState,
     label,
     labelPosition,
-    state,
-    setState
+    disabled=false
 }: ToggleProps): JSX.Element {
     return (
         <label htmlFor={id} className={`group flex ${labelPosition === "left" ? "flex-row" : "flex-row-reverse"}`}>
@@ -26,6 +28,7 @@ export default function Toggle({
                 id={id} 
                 checked={state}
                 onChange={() => setState(!state)}
+                disabled={disabled}
                 className="hidden"
             />
             <span>{label}</span>

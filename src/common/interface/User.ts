@@ -1,13 +1,13 @@
 import { UserStatus } from "../enum/UserStatus";
 
 export interface User {
-    _id: string;
+    id: string;
     firstName: string;
     lastName: string;
     email: string;
-    role: string;
-    password: string | null;
+    password: boolean;
     profilePictureUrl: string;
+    role: string;
     status: UserStatus;
     permissions: string[];
 }

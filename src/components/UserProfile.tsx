@@ -16,7 +16,7 @@ export default function UserProfile({
     role
 }: UserProfileProps): JSX.Element {
     return (
-        <Link href="/users/profile" className="inline-flex items-center gap-4 rounded hover:bg-zinc-700 duration-150 py-1 px-2">
+        <Link href="/hq/users/profile" className="inline-flex items-center gap-4 rounded hover:bg-zinc-700 duration-150 py-1 px-2">
             <div className="flex justify-center items-center size-10 rounded-full overflow-hidden bg-blue-500/20 border-2 border-blue-500 text-blue-500">
                 {profilePictureUrl ? (
                     <Image src={profilePictureUrl} alt={`${firstName} ${lastName}'s profile`}/>

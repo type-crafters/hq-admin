@@ -120,12 +120,12 @@ export default function UserListView(): JSX.Element {
                     <tbody>
                         {users.length ? users.map((user, i) => (
                             <tr key={i} className="group">
-                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
-                                    <Link href={`/hq/users/${user._id}`} className="text-xs opacity-60 hover:underline">
-                                        {user._id}
+                                <td className="p-2 group-not-last:border-b border-zinc-500">
+                                    <Link href={`/hq/users/${user.id}`} className="line-clamp-1 text-xs opacity-60 hover:underline">
+                                        {user.id}
                                     </Link>
                                 </td>
-                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
+                                <td className="p-2 group-not-last:border-b border-zinc-500">
                                     <div className="flex items-center gap-2">
                                         <img
                                             src={user.profilePictureUrl}
@@ -135,17 +135,17 @@ export default function UserListView(): JSX.Element {
                                         <span>{user.firstName} {user.lastName}</span>
                                     </div>
                                 </td>
-                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
+                                <td className="p-2 group-not-last:border-b border-zinc-500">
                                     <p className="max-w-xs truncate">
                                         {user.email}
                                     </p>
                                 </td>
-                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
+                                <td className="p-2 group-not-last:border-b border-zinc-500">
                                     <p className="max-w-xs truncate">
                                         {user.role}
                                     </p>
                                 </td>
-                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
+                                <td className="p-2 group-not-last:border-b border-zinc-500">
                                     {user.password ? (
                                         <span className="inline-flex gap-1 text-sm px-2 rounded-full border bg-green-950 text-green-400 border-green-500">
                                             <i className="bi bi-check"></i>
@@ -158,10 +158,10 @@ export default function UserListView(): JSX.Element {
                                         </span>
                                     )}
                                 </td>
-                                <td className="lime-clamp-1 p-2 group-not-last:border-b border-zinc-500">
+                                <td className="p-2 group-not-last:border-b border-zinc-500">
                                     <UserStatusBadge status={user.status} />
                                 </td>
-                                <td>
+                                <td className="p-2 group-not-last:border-b border-zinc-500">
                                     {user.permissions.length}
                                 </td>
                             </tr>

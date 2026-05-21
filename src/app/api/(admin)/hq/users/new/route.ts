@@ -8,19 +8,21 @@ export async function POST(request: NextRequest) {
         const lastName = form.get("lastName");
         const email = form.get("email");
         const role = form.get("role");
-        const permissions = JSON.parse(form.get("firstName") as string) as string[];
+        const rawPermissions = form.get("permissions");
+        const permissions = rawPermissions ? (JSON.parse(rawPermissions as string) as string[]) : [];
         const showOnPage = form.get("showOnPage");
+
 
         const data = {
             firstName,
             lastName,
             email,
-            phoneNo: role,
+            role,
             permissions,
-            showOnPage
-        }
+            showOnPage: !!showOnPage
+        };
 
-        const url = new URL("/users/invite")
+        const url = new URL("/api/users", process.env.API_URL);
 
         const response = await fetch(url, {
             method: "POST",
@@ -38,7 +40,7 @@ export async function POST(request: NextRequest) {
         }
 
         const result = await response.json();
-        return NextResponse.json(result, { status: 200 });
+        return NextResponse.json(result, { status: response.status });
 
     } catch (error) {
         return NextResponse.json(

@@ -1,3 +1,6 @@
+import { ListResponse } from "@/common/interface/ListResponse";
+import { User } from "@/common/interface/User";
+
 export async function GET() {
 	const url = new URL("/api/users", process.env.API_URL);
 
@@ -10,8 +13,9 @@ export async function GET() {
         });
 
 		if (response.ok) {
-			const data = await response.json();
-			return Response.json(data, { status: response.status });
+			const payload: ListResponse<User> = await response.json();
+			console.log(payload);
+			return Response.json(payload.data, { status: response.status });
 		}
 
 		if (response.status === 404) {
