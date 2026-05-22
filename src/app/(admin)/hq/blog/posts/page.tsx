@@ -1,3 +1,4 @@
+import Spinner from "@/components/Spinner";
 import type { JSX } from "react";
 
 export default function BlogPostListView(): JSX.Element {

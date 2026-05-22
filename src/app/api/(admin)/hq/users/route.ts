@@ -14,7 +14,6 @@ export async function GET() {
 
 		if (response.ok) {
 			const payload: ListResponse<User> = await response.json();
-			console.log(payload);
 			return Response.json(payload.data, { status: response.status });
 		}
 

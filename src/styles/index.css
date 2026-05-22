@@ -108,3 +108,16 @@ details[open]::details-content {
     margin-left: auto;
     content: url('/img/check2.svg');
 }
+
+.spin {
+    transform-origin: center;
+    animation: spin 750ms linear infinite;
+}
+
+@keyframes spin {
+    from {
+        rotate: 0deg;
+    } to {
+        rotate: 360deg;
+    }
+}

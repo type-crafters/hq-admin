@@ -47,6 +47,15 @@ export default function AdminSidebar(): JSX.Element {
                             </li>
                             <li>
                                 <Link
+                                    href="/hq/roles"
+                                    className="flex items-center gap-2 px-3 py-2 rounded opacity-60 hover:opacity-100 hover:bg-zinc-700 duration-150"
+                                >
+                                    <i className="bi bi-person-vcard"></i>
+                                    <p>Roles</p>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
                                     href="/hq/projects"
                                     className="flex items-center gap-2 px-3 py-2 rounded opacity-60 hover:opacity-100 hover:bg-zinc-700 duration-150"
                                 >

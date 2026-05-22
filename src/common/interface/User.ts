@@ -10,4 +10,6 @@ export interface User {
     role: string;
     status: UserStatus;
     permissions: string[];
+    createdAt: Date;
+    updatedAt: Date;
 }

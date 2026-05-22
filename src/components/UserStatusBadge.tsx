@@ -13,21 +13,21 @@ export default function UserStatusBadge({
     switch (status) {
         case UserStatus.Unverified:
             return (
-                <span className="w-fit border rounded-full px-2 py-0.5 flex items-center gap-2 text-xs border-yellow-500 bg-yellow-950 text-yellow-400">
+                <span className="w-fit h-fit border rounded-full px-2 py-0.5 flex items-center gap-2 text-xs border-yellow-500 bg-yellow-950 text-yellow-400">
                     <i className="bi bi-exclamation-triangle"></i>
                     <span>{titled}</span>
                 </span>
             );
         case UserStatus.Active:
             return (
-                <span className="w-fit border rounded-full px-2 py-0.5 flex items-center gap-2 text-xs border-green-500 bg-green-950 text-green-400">
+                <span className="w-fit h-fit border rounded-full px-2 py-0.5 flex items-center gap-2 text-xs border-green-500 bg-green-950 text-green-400">
                     <i className="bi bi-check-circle"></i>
                     <span>{titled}</span>
                 </span>
             );
         case UserStatus.Suspended:
             return (
-                <span className="w-fit border rounded-full px-2 py-0.5 flex items-center gap-2 text-xs border-red-500 bg-red-950 text-red-400">
+                <span className="w-fit h-fit border rounded-full px-2 py-0.5 flex items-center gap-2 text-xs border-red-500 bg-red-950 text-red-400">
                     <i className="bi bi-ban"></i>
                     <span>{titled}</span>
                 </span>

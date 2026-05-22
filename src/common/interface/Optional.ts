@@ -1,0 +1,1 @@
+export type Optional<T extends object> = T | Record<string, never>;
