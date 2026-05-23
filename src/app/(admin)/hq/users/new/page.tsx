@@ -2,38 +2,44 @@
 
 import { PermissionAction } from "@/common/enum/PermissionAction";
 import { PermissionEntity } from "@/common/enum/PermissionEntity";
+import type { Role } from "@/common/interface/Role";
 import { AppResponse } from "@/common/interface/AppResponse";
 import { ErrorResponse } from "@/common/interface/ErrorResponse";
 import { OptionalToastContent } from "@/common/interface/ToastContent";
+import PermissionMatrix from "@/components/PermissionMatrix";
 import Toast from "@/components/Toast";
 import Toggle from "@/components/Toggle";
 import { SubmitEvent, SyntheticEvent, useEffect, useState, type JSX } from "react";
 
 export default function NewUserView(): JSX.Element {
     const [formEnabled, setFormEnabled] = useState(true);
-    const [toast, setToast] = useState<OptionalToastContent>({}); 
+    const [toast, setToast] = useState<OptionalToastContent>({});
+    const [roles, setRoles] = useState<Role[]>([]);
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
-    const [role, setRole] = useState("");
-    const [entity, setEntity] = useState(PermissionEntity.NONE);
-    const [action, setAction] = useState(PermissionAction.NONE);
-    const [permissions, setPermissons] = useState(new Set<string>());
-    const [permissionText, setPermissonText] = useState("");
+    const [selectedRole, setSelectedRole] = useState("");
+    const [permissions, setPermissions] = useState<string[]>([]);
     const [showOnPage, setShowOnPage] = useState(false);
 
-    const addPermission = () => {
-        if (!action || !entity) return;
+    useEffect(() => {
+        fetch("/api/hq/roles")
+            .then((res) => res.json())
+            .then((data) => setRoles(data))
+            .catch(() => {});
+    }, []);
 
-        setPermissons(p => new Set([...p, `${action}:${entity}`]));
-
-        setAction(PermissionAction.NONE);
-        setEntity(PermissionEntity.NONE);
+    const handleRoleChange = (roleId: string) => {
+        setSelectedRole(roleId);
+        const role = roles.find((r) => r.id === roleId);
+        if (role) {
+            setPermissions(role.permissions);
+        }
     };
 
-    const removePermission = (value: string) => {
-        setPermissons(p => new Set([...p].filter(i => i !== value)));
+    const handlePermissionChange = (newPermissions: string[]) => {
+        setPermissions(newPermissions);
     };
 
     const resetForm = (event?: SyntheticEvent<HTMLFormElement>) => {
@@ -41,10 +47,8 @@ export default function NewUserView(): JSX.Element {
         setFirstName("");
         setLastName("");
         setEmail("");
-        setRole("");
-        setEntity(PermissionEntity.NONE);
-        setAction(PermissionAction.NONE);
-        setPermissons(new Set());
+        setSelectedRole("");
+        setPermissions([]);
         setShowOnPage(false);
     };
 
@@ -60,7 +64,7 @@ export default function NewUserView(): JSX.Element {
                 body: data,
             });
 
-            const payload: AppResponse = await response.json()
+            const payload: AppResponse = await response.json();
 
             if (response.ok) {
                 setToast({ title: "Success", message: "User created successfully." });
@@ -72,8 +76,6 @@ export default function NewUserView(): JSX.Element {
             setFormEnabled(true);
         }
     };
-
-    useEffect(() => setPermissonText(JSON.stringify(Array.from(permissions))), [permissions]);
 
     return (
         <>
@@ -142,16 +144,28 @@ export default function NewUserView(): JSX.Element {
                             <div className="space-y-1">
                                 <label htmlFor="role" className="block text-sm opacity-60 uppercase font-semibold">Role</label>
                                 <div className="flex items-center border border-zinc-600 rounded bg-zinc-800/60 outline outline-transparent has-focus:outline-indigo-500 duration-150 px-2 py-1 gap-2 has-disabled:cursor-progress has-disabled:bg-zinc-700/60">
-                                    <input
-                                        type="tel"
+                                    <select
                                         name="role"
                                         id="role"
-                                        placeholder="Art Director"
-                                        className="flex-1 focus:outline-none text-lg"
+                                        className="flex-1 focus:outline-none text-lg bg-transparent"
                                         disabled={!formEnabled}
-                                        value={role}
-                                        onInput={(e) => setRole(e.currentTarget.value)}
-                                    />
+                                        value={selectedRole}
+                                        onChange={(e) => handleRoleChange(e.target.value)}
+                                    >
+                                        <option value="">Select a role...</option>
+                                        {roles.map((role) => (
+                                            <option key={role.id} value={role.name}>
+                                                {role.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <a
+                                        href="/hq/roles/new"
+                                        className="shrink-0 p-1 rounded hover:bg-zinc-600 duration-150 text-zinc-400 hover:text-zinc-200"
+                                        title="Create new role"
+                                    >
+                                        <i className="bi bi-plus-circle"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -164,67 +178,10 @@ export default function NewUserView(): JSX.Element {
                             </h3>
                             <hr className="opacity-20" />
                             <p className="opacity-60">Select permissions for this user to have across the platform.</p>
-                            <div className="w-full flex items-stretch gap-4">
-                                <div className="w-full flex items-center gap-2">
-                                    <select
-                                        id="action"
-                                        className="custom-select flex-1 disabled:cursor-progress"
-                                        disabled={!formEnabled}
-                                        value={action}
-                                        onChange={(e) => setAction(e.target.value as PermissionAction)}
-                                    >
-                                        {Object.entries(PermissionAction).map(([key, value]) =>
-                                            value ? (
-                                                <option key={key} value={key}>{value}</option>
-                                            ) : (
-                                                <option key={key} value={value} disabled hidden />
-                                            )
-                                        )}
-                                    </select>
-                                    <span>:</span>
-                                    <select
-                                        id="entity"
-                                        className="custom-select flex-1 disabled:cursor-progress"
-                                        disabled={!formEnabled}
-                                        value={entity}
-                                        onChange={(e) => setEntity(e.target.value as PermissionEntity)}
-                                    >
-                                        {Object.entries(PermissionEntity).map(([key, value]) =>
-                                            value ? (
-                                                <option key={key} value={key}>{value}</option>
-                                            ) : (
-                                                <option key={key} value={value} disabled hidden />
-
-                                            )
-                                        )}
-                                    </select>
-                                </div>
-                                <button
-                                    type="button"
-                                    className="bg-indigo-500 hover:bg-indigo-600 duration-150 rounded text-white px-2"
-                                    onClick={addPermission}
-                                    disabled={!formEnabled}
-                                >
-                                    Add
-                                </button>
-                            </div>
-                            <div>
-                                <h4 className="text-lg font-semibold">Permissions</h4>
-                                {permissions.size ? (
-                                    <ul className="py-4 w-full">
-                                        {Array.from(permissions).map((p, i) => (
-                                            <li key={i} className="flex p-2 rounded hover:bg-zinc-600 duration-150">
-                                                <p className="flex-1">{p}</p>
-                                                <button onClick={() => removePermission(p)}>
-                                                    <i className="bi bi-x-lg"></i>
-                                                </button>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                ) : (
-                                    <p className="opacity-60"><em>No permissions added.</em></p>
-                                )}
-                            </div>
+                            <PermissionMatrix
+                                permissions={permissions}
+                                onChange={handlePermissionChange}
+                            />
                         </fieldset>
                         <fieldset className="flex-2 p-6 border border-zinc-500 space-y-4 bg-zinc-700">
                             <h3 className=" text-xl font-semibold flex items-center gap-2">
@@ -246,7 +203,7 @@ export default function NewUserView(): JSX.Element {
                                 </p>
                             </div>
                         </fieldset>
-                        <input type="text" name="permissions" id="permisions" value={permissionText} className="hidden" readOnly />
+                        <input type="text" name="permissions" id="permisions" value={JSON.stringify(permissions)} className="hidden" readOnly />
                     </div>
                     <div className="w-full flex justify-end items-center gap-4">
                         <input
