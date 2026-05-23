@@ -94,18 +94,20 @@ export default function BlogPostForm({ mode, post }: BlogPostFormProps): JSX.Ele
 					<label className="block text-xs uppercase font-bold opacity-60 mb-2">
 						Title *
 					</label>
-					<input
-						type="text"
-						value={title}
-						onChange={(e) => {
-							setTitle(e.target.value);
-							setError(null);
-						}}
-						onBlur={handleTitleBlur}
-						placeholder="Enter post title"
-						className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
-						disabled={isPending}
-					/>
+					<div className="w-full rounded border border-zinc-500 bg-zinc-900/50 flex items-center gap-2 px-3 py-1 outline outline-transparent has-focus:outline-indigo-500 duration-150">
+						<input
+							type="text"
+							value={title}
+							onChange={(e) => {
+								setTitle(e.target.value);
+								setError(null);
+							}}
+							onBlur={handleTitleBlur}
+							placeholder="Enter post title"
+							className="flex-1 focus:outline-none placeholder:text-zinc-500"
+							disabled={isPending}
+						/>
+					</div>
 				</div>
 
 				{/* Slug */}
@@ -113,8 +115,8 @@ export default function BlogPostForm({ mode, post }: BlogPostFormProps): JSX.Ele
 					<label className="block text-xs uppercase font-bold opacity-60 mb-2">
 						Slug
 					</label>
-					<div className="flex items-center">
-						<span className="px-4 py-3 bg-zinc-900 border border-r-0 border-zinc-700 rounded-l-lg text-zinc-500">
+					<div className="w-full rounded border border-zinc-500 bg-zinc-900/50 flex items-center gap-2 px-3 py-1 outline outline-transparent has-focus:outline-indigo-500 duration-150">
+						<span className="text-zinc-500 shrink-0">
 							/hq/blog/
 						</span>
 						<input
@@ -125,7 +127,7 @@ export default function BlogPostForm({ mode, post }: BlogPostFormProps): JSX.Ele
 								setError(null);
 							}}
 							placeholder="auto-generated-from-title"
-							className="flex-1 px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-r-lg focus:outline-none focus:border-indigo-500 transition-colors"
+							className="flex-1 focus:outline-none placeholder:text-zinc-500"
 							disabled={isPending}
 						/>
 					</div>
