@@ -1,13 +1,13 @@
-import type { Dispatch, JSX, SetStateAction } from "react";
+import type { JSX } from "react";
 import styles from "@styles/toggle.module.css";
 
 interface ToggleProps {
     id: string;
     name?: string;
     state: boolean;
-    setState: Dispatch<SetStateAction<boolean>>;
     label: string;
     labelPosition: "left" | "right";
+    setState: (value: boolean) => void;
     disabled?: boolean;
 }
 

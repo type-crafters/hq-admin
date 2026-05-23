@@ -20,7 +20,7 @@ export default function UserListView(): JSX.Element {
         fetch("/api/hq/users")
             .then(response => response.json())
             .then(data => setUsers(data))
-            .catch(error => setToast({ title: "Error", message: error }))
+            .catch(error => setToast({ title: "Error", message: error.message || String(error) }))
             .finally(() => setTimeout(() => setLoading(false), 500));
     }
 
