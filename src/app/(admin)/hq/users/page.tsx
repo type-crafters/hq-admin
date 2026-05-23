@@ -1,5 +1,6 @@
 "use client";
 
+import { ExportFields } from "@/common/enum/ExportFields";
 import { ExportFormat } from "@/common/enum/ExportFormat";
 import { OptionalToastContent } from "@/common/interface/ToastContent";
 import { User } from "@/common/interface/User";
@@ -8,17 +9,27 @@ import Spinner from "@/components/Spinner";
 import Toast from "@/components/Toast";
 import UserStatusBadge from "@/components/UserStatusBadge";
 import Link from "next/link";
-import { useEffect, useState, type JSX } from "react";
+import { SyntheticEvent, useEffect, useRef, useState, type JSX } from "react";
 
 export default function UserListView(): JSX.Element {
     const [loading, setLoading] = useState(false);
-    const [dialogMounted, setDialogMounted] = useState(false);
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [toast, setToast] = useState<OptionalToastContent>({});
     const [query, setQuery] = useState("");
     const [users, setUsers] = useState<Array<User>>([]);
 
+    const [exportFields, setExportFields] = useState<ExportFields | null>(null);
     const [exportFormat, setExportFormat] = useState<ExportFormat | null>(null);
     const [exportEnabled, setExportEnabled] = useState(true);
+
+    const checkboxRef = useRef<HTMLInputElement>(null);
+
+    const resetExportRequest = (event: SyntheticEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setExportFields(null);
+        setExportFormat(null);
+        setDialogOpen(false);
+    }
 
     const fetchUsers = () => {
         setLoading(true);
@@ -30,13 +41,19 @@ export default function UserListView(): JSX.Element {
             .finally(() => setTimeout(() => setLoading(false), 500));
     }
 
+
+    const closeDropdown = (event: SyntheticEvent) => {
+        event.stopPropagation();
+        if (checkboxRef.current) checkboxRef.current.checked = false;
+    }
+
     useEffect(fetchUsers, [])
 
 
     return (
         <>
-            <Dialog id="export" mounted={dialogMounted} setMounted={setDialogMounted}>
-                <form className="interpolate-keywords duration-200">
+            <Dialog id="export" open={dialogOpen} setOpen={setDialogOpen}>
+                <form onReset={resetExportRequest} className="interpolate-keywords duration-200">
                     <div className="space-y-6">
                         <div>
                             <h2 className="text-xl font-semibold">Export data</h2>
@@ -46,22 +63,49 @@ export default function UserListView(): JSX.Element {
                             <div className="space-y-4">
                                 <h3 className="text-lg font-semibold">Fields</h3>
                                 <div className="flex gap-4 items-stretch">
-                                </div>
-                            </div>
-                            <div className="space-y-4">
-                                <h3 className="text-lg font-semibold">Format</h3>
-                                <div className="grid grid-cols-2 gap-4">
-                                    {Object.entries(ExportFormat).map(([key, value]) => (
-                                        <label className="block flex-1" key={key}>
-                                            <input type="radio" name="exportFormat" value={value} onChange={() => setExportFormat(value)} className="hidden peer" />
-                                            <div role="presentation" className="flex-1 text-xl text-center py-6 border border-zinc-500 outline-2 outline-transparent hover:outline-white peer-checked:outline-indigo-500! rounded-lg duration-150 cursor-pointer">
-                                                {key}
+                                    {Object.entries(ExportFields).map(([value, key]) => (
+                                        <label className="group block flex-1" key={key}>
+                                            <input
+                                                type="radio"
+                                                name="exportFields"
+                                                value={value}
+                                                className="hidden"
+                                                onChange={() => setExportFields(key)}
+                                            />
+                                            <div role="presentation" className="flex gap-4 items-center">
+                                                <div className="size-4 rounded-full border border-zinc-500 flex justify-center items-center">
+                                                    <div className="size-2 bg-indigo-500 rounded-full scale-0 group-has-checked:scale-100 duration-150"></div>
+                                                </div>
+                                                <p>{value}</p>
                                             </div>
                                         </label>
                                     ))}
                                 </div>
                             </div>
-                            <div className={`${exportFormat ? "max-h-auto" : "max-h-0"} interpolate-keywords duration-200`}>
+                            <div className={`${exportFields === ExportFields.Select ? "h-auto" : "h-0"} interpolate-keywords duration-200`}>
+                                {exportFields === ExportFields.Select && (
+                                    <div className="space-y-4">
+                                        <h3 className="text-lg font-semibold">Select fields</h3>
+                                        <div className="flex gap-4 items-stretch">
+                                            {/* Fields */}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="space-y-4">
+                                <h3 className="text-lg font-semibold">Format</h3>
+                                <div className="grid grid-cols-2 gap-4">
+                                    {Object.entries(ExportFormat).map(([value, key]) => (
+                                        <label className="block flex-1" key={key}>
+                                            <input type="radio" name="exportFormat" value={value} onChange={() => setExportFormat(key)} className="hidden peer" />
+                                            <div role="presentation" className="flex-1 text-xl text-center py-6 border border-zinc-500 outline-2 outline-transparent hover:outline-white peer-checked:outline-indigo-500! rounded-lg duration-150 cursor-pointer">
+                                                {value}
+                                            </div>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className={`${exportFormat ? "h-auto" : "h-0"} interpolate-keywords duration-200`}>
                                 {exportFormat && (
                                     <div className="space-y-4">
                                         <h3 className="text-lg font-semibold">Export as</h3>
@@ -135,7 +179,7 @@ export default function UserListView(): JSX.Element {
                         <label
                             className="relative flex items-center gap-1 px-4 py-1 rounded border border-zinc-500 cursor-pointer"
                         >
-                            <input type="checkbox" className="peer hidden" />
+                            <input type="checkbox" className="peer hidden" ref={checkboxRef}/>
                             <span>Actions</span>
                             <i className="bi bi-caret-down-fill text-xs"></i>
 
@@ -145,20 +189,7 @@ export default function UserListView(): JSX.Element {
                                 <li className="px-4 py-1 hover:bg-zinc-700 duration-150">
                                     <button
                                         type="button"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-
-                                            // close dropdown
-                                            const input = (
-                                                e.currentTarget
-                                                    .closest("label")
-                                                    ?.querySelector("input")
-                                            ) as HTMLInputElement | null;
-
-                                            if (input) input.checked = false;
-
-                                            setDialogMounted(true);
-                                        }}
+                                        onClick={(e) => { closeDropdown(e); setDialogOpen(true); }}
                                         className="flex gap-2 items-center w-full"
                                     >
                                         <i className="bi bi-download"></i>
