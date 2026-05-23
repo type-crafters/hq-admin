@@ -66,7 +66,7 @@ export default function AdminSidebar(): JSX.Element {
 
                             <li>
                                 <Link
-                                    href="/hq/blog/posts"
+                                    href="/hq/blog"
                                     className="flex items-center gap-2 px-3 py-2 rounded opacity-60 hover:opacity-100 hover:bg-zinc-700 duration-150"
                                 >
                                     <i className="bi bi-file-richtext text-lg"></i>
@@ -113,20 +113,25 @@ export default function AdminSidebar(): JSX.Element {
             </nav>
 
             <div className="not-last:border-b border-zinc-500 px-3 py-6 space-y-2">
-                <a className="flex p-3 gap-4 items-center hover:bg-zinc-700 duration-150 rounded-lg">
+                <Link
+                    href="/hq/security/roles"
+                    className="flex p-3 gap-4 items-center hover:bg-zinc-700 duration-150 rounded-lg"
+                >
                     <div className="w-5 flex justify-center">
                         <i className="bi bi-shield text-lg"></i>
                     </div>
                     <p>Security</p>
-                </a>
+                </Link>
 
-                <a className="flex p-3 gap-4 items-center hover:bg-zinc-700 duration-150 rounded-lg">
+                <Link
+                    href="/hq/settings/general"
+                    className="flex p-3 gap-4 items-center hover:bg-zinc-700 duration-150 rounded-lg"
+                >
                     <div className="w-5 flex justify-center">
                         <i className="bi bi-gear text-lg"></i>
                     </div>
-
                     <p>Settings</p>
-                </a>
+                </Link>
             </div>
         </aside>
     );

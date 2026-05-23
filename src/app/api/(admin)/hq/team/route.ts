@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 
+const API_URL = process.env.API_URL || "http://localhost:8080";
+
 export async function GET() {
     try {
-        const url = new URL("/api/members", process.env.API_URL);
+        const url = new URL("/api/members", API_URL);
         const response = await fetch(url, {
             method: "GET",
             headers: {

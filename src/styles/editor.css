@@ -1,0 +1,624 @@
+/* ==========================================================================
+   Editor.js Dark Theme Customization
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Codex Editor Base
+   -------------------------------------------------------------------------- */
+.codex-editor {
+    color: #e4e4e7;
+    font-family: inherit;
+}
+
+.codex-editor__redactor {
+    padding-bottom: 100px !important;
+}
+
+/* --------------------------------------------------------------------------
+   Content Blocks
+   -------------------------------------------------------------------------- */
+.ce-block__content {
+    color: #e4e4e7;
+    max-width: 100%;
+}
+
+.ce-paragraph {
+    color: #e4e4e7;
+    line-height: 1.7;
+}
+
+.ce-header {
+    color: #f4f4f5;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* --------------------------------------------------------------------------
+   Lists
+   -------------------------------------------------------------------------- */
+.cdx-list,
+.cdx-list ul,
+.cdx-list ol {
+    color: #e4e4e7;
+}
+
+.cdx-list li {
+    color: #e4e4e7;
+}
+
+/* --------------------------------------------------------------------------
+   Quote Block
+   -------------------------------------------------------------------------- */
+.cdx-quote {
+    background: #18181b;
+    border-left: 4px solid #6366f1;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+}
+
+.cdx-quote__text {
+    color: #e4e4e7;
+    font-style: italic;
+    font-size: 1.1em;
+}
+
+.cdx-quote__caption {
+    color: #a1a1aa;
+}
+
+/* --------------------------------------------------------------------------
+   Code Block
+   -------------------------------------------------------------------------- */
+.cdx-code {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    border-radius: 8px;
+    padding: 16px;
+    color: #d4d4d8;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Delimiter
+   -------------------------------------------------------------------------- */
+.cdx-delimiter {
+    color: #52525b;
+    font-size: 2em;
+    line-height: 1;
+    text-align: center;
+}
+
+.cdx-delimiter::before {
+    content: '***';
+}
+
+/* --------------------------------------------------------------------------
+   Image Block
+   -------------------------------------------------------------------------- */
+.image-tool__image {
+    border-radius: 8px;
+    border: 1px solid #3f3f46;
+}
+
+.image-tool__caption {
+    color: #a1a1aa;
+    font-size: 0.9em;
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Inline Toolbar
+   -------------------------------------------------------------------------- */
+.ce-inline-toolbar {
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.ce-inline-toolbar__buttons {
+    gap: 4px;
+}
+
+.ce-inline-tool {
+    color: #e4e4e7;
+    padding: 8px 10px;
+    border-radius: 4px;
+    transition: background-color 150ms, color 150ms;
+}
+
+.ce-inline-tool:hover {
+    background: #3f3f46;
+    color: #f4f4f5;
+}
+
+.ce-inline-tool--active {
+    color: #818cf8;
+    background: rgba(99, 102, 241, 0.15);
+}
+
+/* Inline tools - H, Bold, Italic, Underline, Link, etc */
+.ce-inline-tool--bold .ce-icon,
+.ce-inline-tool--italic .ce-icon,
+.ce-inline-tool--underline .ce-icon,
+.ce-inline-tool--link .ce-icon,
+.ce-inline-tool--strike .ce-icon,
+.ce-inline-tool--code .ce-icon {
+    color: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   Underline specific styling (if using @editorjs/underline)
+   -------------------------------------------------------------------------- */
+.ce-inline-tool--underline.toolbox-item--active,
+.ce-inline-tool--underline.toolbox-item:hover {
+    color: #22d3ee;
+    background: rgba(34, 211, 238, 0.15);
+}
+
+/* Text with underline */
+.ce-inline-tool--underline.is-active {
+    color: #22d3ee;
+}
+
+/* --------------------------------------------------------------------------
+   Block Tunes (settings menu)
+   -------------------------------------------------------------------------- */
+.ce-toolbar__settings {
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    border-radius: 8px;
+}
+
+.ce-settings-button {
+    color: #e4e4e7;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.ce-settings-button:hover {
+    background: #3f3f46;
+}
+
+.ce-settings-button--active {
+    color: #818cf8;
+}
+
+/* --------------------------------------------------------------------------
+   Settings Button (gear icon on the right)
+   -------------------------------------------------------------------------- */
+.ce-toolbar__settings-btn {
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    color: #e4e4e7;
+    border-radius: 0 8px 8px 0;
+}
+
+.ce-toolbar__settings-btn:hover {
+    background: #3f3f46;
+    color: #818cf8;
+}
+
+/* --------------------------------------------------------------------------
+   Toolbar Actions Container
+   -------------------------------------------------------------------------- */
+.ce-toolbar { 
+    width: 110%; 
+}
+
+.ce-toolbar__content {
+    width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Plus Button (add block)
+   -------------------------------------------------------------------------- */
+.ce-toolbar__plus {
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    color: #e4e4e7;
+    border-radius: 8px 0 0 8px;
+}
+
+.ce-toolbar__plus:hover {
+    background: #3f3f46;
+    color: #818cf8;
+}
+
+/* --------------------------------------------------------------------------
+   Enter Button (convert block type)
+   -------------------------------------------------------------------------- */
+.ce-toolbar__enter {
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    color: #e4e4e7;
+    border-radius: 0 8px 8px 0;
+}
+
+.ce-toolbar__enter:hover {
+    background: #3f3f46;
+}
+
+/* --------------------------------------------------------------------------
+   Drag Handle
+   -------------------------------------------------------------------------- */
+.ce-drag-handle {
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    color: #71717a;
+    border-radius: 4px;
+}
+
+.ce-drag-handle:hover {
+    color: #e4e4e7;
+}
+
+.ce-drag-handle__dot-triangle {
+    background: #52525b;
+}
+
+/* --------------------------------------------------------------------------
+   Selection
+   -------------------------------------------------------------------------- */
+.ce-code__textarea {
+    background: #18181b;
+    border-color: #3f3f46;
+    color: #e4e4e7;
+}
+
+/* --------------------------------------------------------------------------
+   Input fields inside editor
+   -------------------------------------------------------------------------- */
+.cdx-input {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    border-radius: 6px;
+    color: #e4e4e7;
+    padding: 8px 12px;
+}
+
+.cdx-input:focus {
+    border-color: #6366f1;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.cdx-input::placeholder {
+    color: #71717a;
+}
+
+/* --------------------------------------------------------------------------
+   Link Tool
+   -------------------------------------------------------------------------- */
+.link-tool {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    border-radius: 8px;
+}
+
+.link-tool__input {
+    color: #e4e4e7;
+    background: transparent;
+    border-bottom-color: #3f3f46;
+}
+
+.link-tool__input:focus {
+    border-bottom-color: #6366f1;
+}
+
+.link-tool__button {
+    background: #6366f1;
+    color: white;
+    border-radius: 6px;
+}
+
+.link-tool__button:hover {
+    background: #4f46e5;
+}
+
+/* --------------------------------------------------------------------------
+   Code Tool
+   -------------------------------------------------------------------------- */
+.ce-code__textarea {
+    background: #18181b;
+    color: #d4d4d8;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* --------------------------------------------------------------------------
+   Prose Dark Theme Overrides
+   -------------------------------------------------------------------------- */
+.prose {
+    color: #e4e4e7;
+}
+
+.prose-invert {
+    color: #e4e4e7;
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)) {
+    color: #f4f4f5;
+}
+
+.prose :where(p):not(:where([class~="not-prose"] *)) {
+    color: #e4e4e7;
+}
+
+.prose :where(a):not(:where([class~="not-prose"] *)) {
+    color: #818cf8;
+}
+
+.prose :where(a):not(:where([class~="not-prose"] *)):hover {
+    color: #6366f1;
+}
+
+.prose :where(code):not(:where([class~="not-prose"] *)) {
+    color: #22d3ee;
+    background: #18181b;
+    border-radius: 4px;
+    padding: 2px 6px;
+}
+
+.prose :where(pre):not(:where([class~="not-prose"] *)) {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    border-radius: 8px;
+}
+
+.prose :where(blockquote):not(:where([class~="not-prose"] *)) {
+    border-left-color: #6366f1;
+    color: #e4e4e7;
+}
+
+/* --------------------------------------------------------------------------
+   Conversion Toolbar (block type selector popup)
+   -------------------------------------------------------------------------- */
+.ce-conversion-toolbar {
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.ce-conversion-toolbar__label {
+    color: #71717a;
+}
+
+.ce-conversion-tool {
+    color: #e4e4e7;
+    padding: 8px 12px;
+}
+
+.ce-conversion-tool:hover {
+    background: #3f3f46;
+}
+
+.ce-conversion-tool--filled {
+    background: rgba(99, 102, 241, 0.15);
+}
+
+.ce-conversion-tool__icon {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    border-radius: 6px;
+}
+
+.ce-conversion-tool__icon svg {
+    color: #e4e4e7;
+}
+
+/* --------------------------------------------------------------------------
+   Popover & Toolbox (Editor.js 2.31 uses popover internally for toolbox)
+   -------------------------------------------------------------------------- */
+.ce-popover,
+.ce-toolbox .ce-popover {
+    --color-background: #27272a !important;
+    --color-text-primary: #e4e4e7 !important;
+    --color-text-secondary: #a1a1aa !important;
+    --color-border: #3f3f46 !important;
+    --color-shadow: rgba(0, 0, 0, 0.4) !important;
+    --color-border-icon: #3f3f46 !important;
+    --color-text-icon-active: #818cf8 !important;
+    --color-background-icon-active: rgba(99, 102, 241, 0.15) !important;
+    --color-background-item-hover: #3f3f46 !important;
+    --color-background-item-focus: rgba(99, 102, 241, 0.1) !important;
+    --color-background-item-confirm: #ef4444 !important;
+    --color-background-item-confirm-hover: #dc2626 !important;
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.ce-popover__container {
+    background: #27272a;
+    border: 1px solid #3f3f46;
+}
+
+.ce-popover__overlay {
+    background: #18181b;
+}
+
+.cdx-search-field.ce-popover__search {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    border-radius: 6px;
+}
+
+.cdx-search-field.ce-popover__search .cdx-search-field__icon {
+    color: #71717a;
+}
+
+.cdx-search-field.ce-popover__search .cdx-search-field__icon svg {
+    color: #71717a;
+}
+
+.cdx-search-field.ce-popover__search .cdx-search-field__input {
+    color: #e4e4e7;
+    background: transparent;
+}
+
+.cdx-search-field.ce-popover__search .cdx-search-field__input::placeholder {
+    color: #71717a;
+}
+
+.ce-popover__nothing-found-message {
+    color: #71717a;
+}
+
+.ce-popover__title {
+    color: #a1a1aa;
+}
+
+.ce-popover__items {
+    scrollbar-color: #3f3f46 transparent;
+}
+
+.ce-popover-item {
+    color: #e4e4e7;
+    border-radius: 4px;
+}
+
+.ce-popover-item:hover:not(.ce-popover-item--no-hover) {
+    background: #3f3f46;
+}
+
+.ce-popover-item--active {
+    background: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+}
+
+.ce-popover-item__title {
+    color: #e4e4e7;
+}
+
+.ce-popover-item__secondary-title {
+    color: #a1a1aa;
+}
+
+.ce-popover-item__icon {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    border-radius: 6px;
+}
+
+.ce-popover-item__icon svg {
+    color: #e4e4e7;
+}
+
+.ce-popover-item--confirmation .ce-popover-item__title,
+.ce-popover-item--confirmation .ce-popover-item__icon {
+    color: #fff;
+}
+
+.ce-popover-header__text {
+    color: #e4e4e7;
+}
+
+.ce-popover-header__back-button {
+    color: #e4e4e7;
+}
+
+/* --------------------------------------------------------------------------
+   Toolbox wrapper overrides
+   -------------------------------------------------------------------------- */
+.ce-toolbox {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.ce-toolbox .ce-popover__container {
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   Image Tool - Upload Area
+   -------------------------------------------------------------------------- */
+.image-tool__image-picture {
+    background: #18181b;
+    border-radius: 4px;
+}
+
+.image-tool__image-preloader {
+    background: #18181b;
+}
+
+/* --------------------------------------------------------------------------
+   Settings Panel
+   -------------------------------------------------------------------------- */
+.ce-settings {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.ce-settings__button {
+    color: #e4e4e7;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.ce-settings__button:hover {
+    background: #3f3f46;
+}
+
+/* --------------------------------------------------------------------------
+   Tooltip
+   -------------------------------------------------------------------------- */
+.ce-tooltip {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    color: #e4e4e7;
+    border-radius: 6px;
+    font-size: 0.8em;
+}
+
+.ce-tooltip__shortcut {
+    color: #71717a;
+}
+
+/* --------------------------------------------------------------------------
+   Inline Toolbar Input (e.g. Link input)
+   -------------------------------------------------------------------------- */
+.ce-inline-toolbar__input {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    border-radius: 4px;
+    color: #e4e4e7;
+    padding: 6px 10px;
+}
+
+.ce-inline-toolbar__input:focus {
+    border-color: #6366f1;
+    outline: none;
+}
+
+/* --------------------------------------------------------------------------
+   Inline Toolbar Dropdown
+   -------------------------------------------------------------------------- */
+.ce-inline-toolbar__dropdown {
+    background: transparent;
+    color: #e4e4e7;
+}
+
+.ce-inline-toolbar__dropdown:hover {
+    background: #3f3f46;
+}
+
+/* --------------------------------------------------------------------------
+   Focus states
+   -------------------------------------------------------------------------- */
+.ce-block--selected .ce-block__content {
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 10px;
+}
+
+.ce-block:hover .ce-block__content {
+    background: rgba(255, 255, 255, 0.02);
+}
