@@ -39,12 +39,12 @@ async function BlogPostsList({ page = 1 }: BlogPostsListProps): Promise<JSX.Elem
 		<div className="space-y-4">
 			<div className="flex items-center justify-between">
 				<div className="flex items-center gap-4">
-					<div className="relative">
-						<i className="bi bi-search absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"></i>
+					<div className="w-full max-w-sm rounded border border-zinc-500 bg-zinc-900/50 flex items-center gap-2 px-3 py-1 outline outline-transparent has-focus:outline-indigo-500 duration-150">
+						<i className="bi bi-search text-zinc-500"></i>
 						<input
 							type="text"
 							placeholder="Search posts..."
-							className="pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors w-64"
+							className="flex-1 focus:outline-none placeholder:text-zinc-500"
 						/>
 					</div>
 					<select className="custom-select px-3 py-2 text-sm">
@@ -62,34 +62,51 @@ async function BlogPostsList({ page = 1 }: BlogPostsListProps): Promise<JSX.Elem
 				</a>
 			</div>
 
-			<div className="bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
-				<table className="w-full">
-					<thead className="bg-zinc-900/50 border-b border-zinc-700">
+			<div className="overflow-x-auto">
+				<table className="w-full rounded-lg border border-neutral-500 border-separate border-spacing-0">
+					<thead>
 						<tr>
-							<th className="text-left px-6 py-4 text-xs uppercase font-bold opacity-60">
-								Title
+							<th className="text-center font-bold border-b border-neutral-500 p-2">
+								<div className="inline-flex items-center gap-1">
+									<span>Title</span>
+									<button aria-label="Sort by title" className="rounded-full hover:bg-zinc-700 duration-150">
+										<i className="bi bi-arrow-down-up text-[10px] p-1"></i>
+									</button>
+								</div>
 							</th>
-							<th className="text-left px-6 py-4 text-xs uppercase font-bold opacity-60">
-								Status
+							<th className="text-center font-bold border-b border-neutral-500 p-2">
+								<div className="inline-flex items-center gap-1">
+									<span>Status</span>
+									<button aria-label="Sort by status" className="rounded-full hover:bg-zinc-700 duration-150">
+										<i className="bi bi-arrow-down-up text-[10px] p-1"></i>
+									</button>
+								</div>
 							</th>
-							<th className="text-left px-6 py-4 text-xs uppercase font-bold opacity-60">
-								Created
+							<th className="text-center font-bold border-b border-neutral-500 p-2">
+								<div className="inline-flex items-center gap-1">
+									<span>Created</span>
+									<button aria-label="Sort by created" className="rounded-full hover:bg-zinc-700 duration-150">
+										<i className="bi bi-arrow-down-up text-[10px] p-1"></i>
+									</button>
+								</div>
 							</th>
-							<th className="text-right px-6 py-4 text-xs uppercase font-bold opacity-60">
-								Actions
+							<th className="text-center font-bold border-b border-neutral-500 p-2">
+								<div className="inline-flex items-center gap-1">
+									<span>Actions</span>
+								</div>
 							</th>
 						</tr>
 					</thead>
-					<tbody className="divide-y divide-zinc-700">
+					<tbody>
 						{posts.map((post) => (
-							<tr key={post.id} className="hover:bg-zinc-700/30 transition-colors">
-								<td className="px-6 py-4">
+							<tr key={post.id} className="group">
+								<td className="p-2 group-not-last:border-b border-zinc-500 text-center">
 									<div>
 										<div className="font-medium">{post.title}</div>
 										<div className="text-sm opacity-60">/{post.slug}</div>
 									</div>
 								</td>
-								<td className="px-6 py-4">
+								<td className="p-2 group-not-last:border-b border-zinc-500 text-center">
 									<span
 										className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
 											post.status === "published"
@@ -105,15 +122,15 @@ async function BlogPostsList({ page = 1 }: BlogPostsListProps): Promise<JSX.Elem
 										{post.status === "published" ? "Published" : "Draft"}
 									</span>
 								</td>
-								<td className="px-6 py-4 opacity-60">
+								<td className="p-2 group-not-last:border-b border-zinc-500 text-center">
 									{new Date(post.createdAt).toLocaleDateString("en-US", {
 										month: "short",
 										day: "numeric",
 										year: "numeric",
 									})}
 								</td>
-								<td className="px-6 py-4">
-									<div className="flex items-center justify-end gap-2">
+								<td className="p-2 group-not-last:border-b border-zinc-500">
+									<div className="flex items-center justify-center gap-2">
 										<a
 											href={`/hq/blog/${post.id}`}
 											className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm border border-zinc-600 rounded-lg hover:bg-zinc-700 duration-150"
@@ -189,10 +206,10 @@ function PostsListSkeleton(): JSX.Element {
 				<div className="h-10 w-64 bg-zinc-800 rounded-lg animate-pulse"></div>
 				<div className="h-10 w-32 bg-zinc-800 rounded-lg animate-pulse"></div>
 			</div>
-			<div className="bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
-				<div className="h-14 bg-zinc-900/50 border-b border-zinc-700"></div>
+			<div className="rounded-lg border border-neutral-500 overflow-hidden">
+				<div className="h-10 border-b border-neutral-500"></div>
 				{[1, 2, 3].map((i) => (
-					<div key={i} className="h-16 border-b border-zinc-700 animate-pulse"></div>
+					<div key={i} className="h-14 border-b border-zinc-500 animate-pulse"></div>
 				))}
 			</div>
 		</div>
