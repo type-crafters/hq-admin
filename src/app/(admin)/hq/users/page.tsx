@@ -21,6 +21,7 @@ export default function UserListView(): JSX.Element {
     const [exportFields, setExportFields] = useState<ExportFields | null>(null);
     const [exportFormat, setExportFormat] = useState<ExportFormat | null>(null);
     const [exportEnabled, setExportEnabled] = useState(true);
+    const [maxKeys, setMaxKeys] = useState<string[]>([]);
 
     const checkboxRef = useRef<HTMLInputElement>(null);
 
@@ -47,8 +48,15 @@ export default function UserListView(): JSX.Element {
         if (checkboxRef.current) checkboxRef.current.checked = false;
     }
 
-    useEffect(fetchUsers, [])
+    useEffect(fetchUsers, []);
 
+    useEffect(() => {
+        setMaxKeys(Object.keys(
+            users.toSorted((u1, u2) => {
+                return Object.keys(u2).length - Object.keys(u1).length;
+            })[0]
+        ));
+    }, [users]);
 
     return (
         <>
@@ -76,7 +84,7 @@ export default function UserListView(): JSX.Element {
                                                 <div className="size-4 rounded-full border border-zinc-500 flex justify-center items-center">
                                                     <div className="size-2 bg-indigo-500 rounded-full scale-0 group-has-checked:scale-100 duration-150"></div>
                                                 </div>
-                                                <p>{value}</p>
+                                                <p>{key}</p>
                                             </div>
                                         </label>
                                     ))}
@@ -86,9 +94,16 @@ export default function UserListView(): JSX.Element {
                                 {exportFields === ExportFields.Select && (
                                     <div className="space-y-4">
                                         <h3 className="text-lg font-semibold">Select fields</h3>
-                                        <div className="flex gap-4 items-stretch">
-                                            {/* Fields */}
-                                        </div>
+                                        <ul className="flex gap-4 items-stretch">
+                                            {maxKeys.map((key, i) => (
+                                                <label className="group" htmlFor={key} key={i}>
+                                                    <input type="checkbox" name="fields" id={`fields-${key}`} className="hidden"/>
+                                                    <div className="size-5 rounded flex justify-center items-center">
+                                                        <i className="bi bi-check-lg scale-0 group-has-checked:scale-100 duration-150"></i>
+                                                    </div>
+                                                </label>
+                                            ))}
+                                        </ul>
                                     </div>
                                 )}
                             </div>
@@ -179,7 +194,7 @@ export default function UserListView(): JSX.Element {
                         <label
                             className="relative flex items-center gap-1 px-4 py-1 rounded border border-zinc-500 cursor-pointer"
                         >
-                            <input type="checkbox" className="peer hidden" ref={checkboxRef}/>
+                            <input type="checkbox" className="peer hidden" ref={checkboxRef} />
                             <span>Actions</span>
                             <i className="bi bi-caret-down-fill text-xs"></i>
 
