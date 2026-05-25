@@ -14,11 +14,13 @@ export default function Toast({
     timeout = 5000,
     buttonText = "Close"
 }: ToastProps): JSX.Element | null {
+    const [copy, setCopy] = useState(content);
     const [rendered, setRendered] = useState(!!Object.keys(content).length);
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         if (Object.keys(content).length) {
+            setCopy(content);
             setRendered(true);
             requestAnimationFrame(() => setVisible(true));
         } else {
@@ -47,8 +49,8 @@ export default function Toast({
             `}>
                 <div className="flex items-center gap-4">
                     <div className="flex-1">
-                        <h2 className="text-lg font-bold">{content.title}</h2>
-                        <p>{content.message}</p>
+                        <h2 className="text-lg font-bold">{copy.title}</h2>
+                        <p>{copy.message}</p>
                     </div>
                     <div>
                         <button

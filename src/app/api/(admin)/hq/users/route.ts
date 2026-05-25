@@ -1,3 +1,4 @@
+import { ErrorResponse } from "@/common/interface/ErrorResponse";
 import { ListResponse } from "@/common/interface/ListResponse";
 import { User } from "@/common/interface/User";
 
@@ -12,16 +13,16 @@ export async function GET() {
             }
         });
 
+		let payload: ListResponse<User> | ErrorResponse;
+
 		if (response.ok) {
-			const payload: ListResponse<User> = await response.json();
-			return Response.json(payload.data, { status: response.status });
+			payload = await response.json() as ListResponse<User>;
+		} else {
+			payload = await response.json() as ErrorResponse;
 		}
+		
+		return Response.json(payload, { status: response.status });
 
-		if (response.status === 404) {
-			return Response.json({ error: "Not found" }, { status: 404 });
-		}
-
-		return Response.json({ error: "Request failed" }, { status: response.status });
 	} catch {
 		return Response.json({ error: "Unexpected error" }, { status: 500 });
 	}

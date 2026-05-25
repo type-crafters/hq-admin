@@ -10,10 +10,8 @@ import {
 interface DialogProps {
     id?: string;
     modal?: boolean;
-
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
-
     children: ReactNode;
 }
 
